@@ -1,0 +1,201 @@
+Index: Charts/kube-finder/templates/deployemnt.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: {{ .Release.Name }}\n  namespace: {{ .Release.Namespace }}\nspec:\n  progressDeadlineSeconds: {{.Values.deployment.progressDeadlineSeconds | default  600 }}\n  replicas: {{.Values.replicaCount | default  1 }}\n  revisionHistoryLimit: {{.Values.deployment.revisionHistoryLimit | default  0 }}\n  selector:\n    matchLabels:\n      control-plane: {{ .Release.Name }}\n      app: {{ template \"resource-manager-operator.name\" . }}\n      release: {{ .Release.Name }}\n  strategy:\n    rollingUpdate:\n      maxSurge: {{.Values.deployment.maxSurge | default  25% }}\n      maxUnavailable: {{.Values.deployment.maxUnavailable | default  25% }}\n    type: RollingUpdate\n  template:\n    metadata: {}\n    spec:\n      containers:\n          image: {{.Values.image.repository }}:{{.Values.image.tag }}\n          imagePullPolicy: IfNotPresent\n          name: {{ .Release.Name }}\n          ports:\n            - containerPort: {{ .Values.port }}\n              name: https\n              protocol: TCP\n          resources:\n            limits:\n              cpu: 500m\n              memory: 128Mi\n            requests:\n              cpu: 5m\n              memory: 64Mi\n      dnsPolicy: ClusterFirst\n      restartPolicy: Always\n      schedulerName: default-scheduler\n      securityContext:\n        runAsNonRoot: true\n      serviceAccount: {{ .Release.Namespace }}\n      serviceAccountName: {{ .Release.Namespace }}\n      terminationGracePeriodSeconds: 10\n\n\n\n\n\n\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Charts/kube-finder/templates/deployemnt.yaml b/Charts/kube-finder/templates/deployemnt.yaml
+--- a/Charts/kube-finder/templates/deployemnt.yaml	(revision da560445f2277edbd144e82e3cefa6ed65238cd8)
++++ b/Charts/kube-finder/templates/deployemnt.yaml	(date 1686577061796)
+@@ -1,54 +1,56 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+-  name: {{ .Release.Name }}
++  name: {{ template "kube-finder.fullname" . }}
+   namespace: {{ .Release.Namespace }}
++  labels:
++    control-plane: {{ .Release.Name }}
++    app: {{ template "kube-finder.name" . }}
++    chart: {{ template "kube-finder.chart" . }}
++    release: {{ .Release.Name }}
+ spec:
+-  progressDeadlineSeconds: {{.Values.deployment.progressDeadlineSeconds | default  600 }}
+-  replicas: {{.Values.replicaCount | default  1 }}
+-  revisionHistoryLimit: {{.Values.deployment.revisionHistoryLimit | default  0 }}
+   selector:
+     matchLabels:
+       control-plane: {{ .Release.Name }}
+-      app: {{ template "resource-manager-operator.name" . }}
++      app: {{ template "kube-finder.name" . }}
+       release: {{ .Release.Name }}
+-  strategy:
+-    rollingUpdate:
+-      maxSurge: {{.Values.deployment.maxSurge | default  25% }}
+-      maxUnavailable: {{.Values.deployment.maxUnavailable | default  25% }}
+-    type: RollingUpdate
++  replicas: {{ .Values.replicaCount }}
+   template:
+-    metadata: {}
++    metadata:
++      labels:
++        app: {{ template "kube-finder.name" . }}
++        control-plane: {{ .Release.Name }}
++        release: {{ .Release.Name }}
+     spec:
++      securityContext:
++        runAsNonRoot: true
+       containers:
+-          image: {{.Values.image.repository }}:{{.Values.image.tag }}
+-          imagePullPolicy: IfNotPresent
+-          name: {{ .Release.Name }}
+-          ports:
+-            - containerPort: {{ .Values.port }}
+-              name: https
+-              protocol: TCP
++        - command:
++            - /manager
++          args:
++            - --leader-elect=false
++          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
++          name: "{{ .Release.Name }}-{{ .Chart.Name }}"
++          securityContext:
++            allowPrivilegeEscalation: false
++          livenessProbe:
++            httpGet:
++              path: /healthz
++              port: 8081
++            initialDelaySeconds: 15
++            periodSeconds: 20
++          readinessProbe:
++            httpGet:
++              path: /readyz
++              port: 8081
++            initialDelaySeconds: 5
++            periodSeconds: 10
+           resources:
+             limits:
+-              cpu: 500m
+-              memory: 128Mi
++              cpu: 200m
++              memory: 100Mi
+             requests:
+-              cpu: 5m
+-              memory: 64Mi
+-      dnsPolicy: ClusterFirst
+-      restartPolicy: Always
+-      schedulerName: default-scheduler
+-      securityContext:
+-        runAsNonRoot: true
+-      serviceAccount: {{ .Release.Namespace }}
+-      serviceAccountName: {{ .Release.Namespace }}
+-      terminationGracePeriodSeconds: 10
+-
+-
+-
+-
+-
+-
+-
+-
+-
++              cpu: 100m
++              memory: 20Mi
++      serviceAccountName: kube-finder
++      terminationGracePeriodSeconds: 5
+\ No newline at end of file
+Index: Charts/kube-finder/templates/_helpers.tpl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{{/*\nExpand the name of the chart.\n*/}}\n{{- define \"kube-finder-system.name\" -}}\n{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix \"-\" }}\n{{- end }}\n\n{{/*\nCreate a default fully qualified app name.\nWe truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).\nIf release name contains chart name it will be used as a full name.\n*/}}\n{{- define \"kube-finder-system.fullname\" -}}\n{{- if .Values.fullnameOverride }}\n{{- .Values.fullnameOverride | trunc 63 | trimSuffix \"-\" }}\n{{- else }}\n{{- $name := default .Chart.Name .Values.nameOverride }}\n{{- if contains $name .Release.Name }}\n{{- .Release.Name | trunc 63 | trimSuffix \"-\" }}\n{{- else }}\n{{- printf \"%s-%s\" .Release.Name $name | trunc 63 | trimSuffix \"-\" }}\n{{- end }}\n{{- end }}\n{{- end }}\n\n{{/*\nCreate chart name and version as used by the chart label.\n*/}}\n{{- define \"kube-finder-system.chart\" -}}\n{{- printf \"%s-%s\" .Chart.Name .Chart.Version | replace \"+\" \"_\" | trunc 63 | trimSuffix \"-\" }}\n{{- end }}\n\n{{/*\nCommon labels\n*/}}\n{{- define \"kube-finder-system.labels\" -}}\nhelm.sh/chart: {{ include \"kube-finder-system.chart\" . }}\n{{ include \"kube-finder-system.selectorLabels\" . }}\n{{- if .Chart.AppVersion }}\napp.kubernetes.io/version: {{ .Chart.AppVersion | quote }}\n{{- end }}\napp.kubernetes.io/managed-by: {{ .Release.Service }}\n{{- end }}\n\n{{/*\nSelector labels\n*/}}\n{{- define \"kube-finder-system.selectorLabels\" -}}\napp.kubernetes.io/name: {{ include \"kube-finder-system.name\" . }}\napp.kubernetes.io/instance: {{ .Release.Name }}\n{{- end }}\n\n{{/*\nCreate the name of the service account to use\n*/}}\n{{- define \"kube-finder-system.serviceAccountName\" -}}\n{{- if .Values.serviceAccount.create }}\n{{- default (include \"kube-finder-system.fullname\" .) .Values.serviceAccount.name }}\n{{- else }}\n{{- default \"default\" .Values.serviceAccount.name }}\n{{- end }}\n{{- end }}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Charts/kube-finder/templates/_helpers.tpl b/Charts/kube-finder/templates/_helpers.tpl
+--- a/Charts/kube-finder/templates/_helpers.tpl	(revision da560445f2277edbd144e82e3cefa6ed65238cd8)
++++ b/Charts/kube-finder/templates/_helpers.tpl	(date 1686576738267)
+@@ -1,7 +1,7 @@
+ {{/*
+ Expand the name of the chart.
+ */}}
+-{{- define "kube-finder-system.name" -}}
++{{- define "kube-finder.name" -}}
+ {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+ {{- end }}
+ 
+@@ -10,7 +10,7 @@
+ We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+ If release name contains chart name it will be used as a full name.
+ */}}
+-{{- define "kube-finder-system.fullname" -}}
++{{- define "kube-finder.fullname" -}}
+ {{- if .Values.fullnameOverride }}
+ {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+ {{- else }}
+@@ -26,16 +26,16 @@
+ {{/*
+ Create chart name and version as used by the chart label.
+ */}}
+-{{- define "kube-finder-system.chart" -}}
++{{- define "kube-finder.chart" -}}
+ {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+ {{- end }}
+ 
+ {{/*
+ Common labels
+ */}}
+-{{- define "kube-finder-system.labels" -}}
+-helm.sh/chart: {{ include "kube-finder-system.chart" . }}
+-{{ include "kube-finder-system.selectorLabels" . }}
++{{- define "kube-finder.labels" -}}
++helm.sh/chart: {{ include "kube-finder.chart" . }}
++{{ include "kube-finder.selectorLabels" . }}
+ {{- if .Chart.AppVersion }}
+ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+ {{- end }}
+@@ -45,17 +45,17 @@
+ {{/*
+ Selector labels
+ */}}
+-{{- define "kube-finder-system.selectorLabels" -}}
+-app.kubernetes.io/name: {{ include "kube-finder-system.name" . }}
++{{- define "kube-finder.selectorLabels" -}}
++app.kubernetes.io/name: {{ include "kube-finder.name" . }}
+ app.kubernetes.io/instance: {{ .Release.Name }}
+ {{- end }}
+ 
+ {{/*
+ Create the name of the service account to use
+ */}}
+-{{- define "kube-finder-system.serviceAccountName" -}}
++{{- define "kube-finder.serviceAccountName" -}}
+ {{- if .Values.serviceAccount.create }}
+-{{- default (include "kube-finder-system.fullname" .) .Values.serviceAccount.name }}
++{{- default (include "kube-finder.fullname" .) .Values.serviceAccount.name }}
+ {{- else }}
+ {{- default "default" .Values.serviceAccount.name }}
+ {{- end }}
+Index: Charts/kube-finder/values.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Default values for resource-manager-operator.\n# This is a YAML-formatted file.\n# Declare variables to be passed into your templates.\n\nreplicaCount: 1\n\nimage:\n  repository: ghcr.io/tikalk/kube-finder\n  pullPolicy: IfNotPresent\n  # Overrides the image tag whose default is the chart appVersion.\n  tag: \"latest\"\n\nport: 8080\n\nimagePullSecrets: []\nnameOverride: \"\"\nfullnameOverride: \"\"\n\nserviceAccount:\n  # Specifies whether a service account should be created\n  create: true\n  # Annotations to add to the service account\n  # Annotations to add to the service account\n  annotations: {}\n  # The name of the service account to use.\n  # If not set and create is true, a name is generated using the fullname template\n  name: \"\"\n\ndeployment: {}\n#  progressDeadlineSeconds: 80\n#  revisionHistoryLimit: 0\n#  maxSurge: 25%\n#  maxUnavailable: 25%\n\npodAnnotations: {}\n\npodSecurityContext: {}\n  # fsGroup: 2000\n\nsecurityContext: {}\n  # capabilities:\n  #   drop:\n  #   - ALL\n  # readOnlyRootFilesystem: true\n  # runAsNonRoot: true\n  # runAsUser: 1000\n\nresources: {}\n  # We usually recommend not to specify default resources and to leave this as a conscious\n  # choice for the user. This also increases chances charts run on environments with little\n  # resources, such as Minikube. If you do want to specify resources, uncomment the following\n  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.\n  # limits:\n  #   cpu: 100m\n  #   memory: 128Mi\n  # requests:\n  #   cpu: 100m\n  #   memory: 128Mi\n\n\nnodeSelector: {}\n\ntolerations: []\n\naffinity: {}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Charts/kube-finder/values.yaml b/Charts/kube-finder/values.yaml
+--- a/Charts/kube-finder/values.yaml	(revision da560445f2277edbd144e82e3cefa6ed65238cd8)
++++ b/Charts/kube-finder/values.yaml	(date 1686576457726)
+@@ -5,10 +5,10 @@
+ replicaCount: 1
+ 
+ image:
+-  repository: ghcr.io/tikalk/kube-finder
++  repository: localhost:55488/controller
+   pullPolicy: IfNotPresent
+   # Overrides the image tag whose default is the chart appVersion.
+-  tag: "latest"
++  tag: "gaby"
+ 
+ port: 8080
+ 

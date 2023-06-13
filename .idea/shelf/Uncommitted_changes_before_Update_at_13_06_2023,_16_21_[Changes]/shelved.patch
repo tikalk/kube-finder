@@ -1,0 +1,19 @@
+Index: config/samples/kube-finder-secret.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apiVersion: v1\nkind: Secret\nmetadata:\n  name: kube-finder-secret\n  namespace: kube-finder\ntype: Opaque\ndata:\n  slack-token: eG94Yi0yMzQxMzY1ODU4LTU0MDM4NzM1NDIwMzQtVlNHOWxNV25WcjduUjR4cXNuU0gxMXh1Cg==\n  openai-api-key: c2stcDJEOGdPREhiaU55eFg2T2lCNkdUM0JsYmtGSmh3YjVZUWdZYWpUdHZHSHNTSFBQCg==\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/samples/kube-finder-secret.yaml b/config/samples/kube-finder-secret.yaml
+--- a/config/samples/kube-finder-secret.yaml	(revision 83f254f944dc328a95552d6afd2ee10ddb3a29a6)
++++ b/config/samples/kube-finder-secret.yaml	(date 1686581141433)
+@@ -2,7 +2,7 @@
+ kind: Secret
+ metadata:
+   name: kube-finder-secret
+-  namespace: kube-finder
++  namespace: kube-finder-system
+ type: Opaque
+ data:
+   slack-token: eG94Yi0yMzQxMzY1ODU4LTU0MDM4NzM1NDIwMzQtVlNHOWxNV25WcjduUjR4cXNuU0gxMXh1Cg==

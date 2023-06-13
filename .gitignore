@@ -1,0 +1,7 @@
+# secrets
+config/samples/kube-finder-secret.yaml
+/config/samples/kube-finder-secret.yaml
+/build/*
+/bin/*
+
+cover.out

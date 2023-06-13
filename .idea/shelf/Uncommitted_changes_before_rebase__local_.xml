@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_rebase_[local]" date="1686575119589" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[local]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before rebase [local]" />
+  <binary>
+    <option name="BEFORE_PATH" value="build/manager" />
+    <option name="AFTER_PATH" value="build/manager" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[local]/manager" />
+  </binary>
+</changelist>

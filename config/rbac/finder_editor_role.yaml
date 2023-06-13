@@ -1,0 +1,31 @@
+# permissions for end users to edit finders.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: finder-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: kube-finder
+    app.kubernetes.io/part-of: kube-finder
+    app.kubernetes.io/managed-by: kustomize
+  name: finder-editor-role
+rules:
+- apiGroups:
+  - kubefinder.tikalk.com
+  resources:
+  - finders
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - kubefinder.tikalk.com
+  resources:
+  - finders/status
+  verbs:
+  - get

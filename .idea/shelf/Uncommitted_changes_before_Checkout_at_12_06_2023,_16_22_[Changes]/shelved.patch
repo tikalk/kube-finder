@@ -1,0 +1,72 @@
+Index: Charts/kube-finder/templates/_helpers.tpl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{{/*\nExpand the name of the chart.\n*/}}\n{{- define \"kube-finder-system.name\" -}}\n{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix \"-\" }}\n{{- end }}\n\n{{/*\nCreate a default fully qualified app name.\nWe truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).\nIf release name contains chart name it will be used as a full name.\n*/}}\n{{- define \"kube-finder-system.fullname\" -}}\n{{- if .Values.fullnameOverride }}\n{{- .Values.fullnameOverride | trunc 63 | trimSuffix \"-\" }}\n{{- else }}\n{{- $name := default .Chart.Name .Values.nameOverride }}\n{{- if contains $name .Release.Name }}\n{{- .Release.Name | trunc 63 | trimSuffix \"-\" }}\n{{- else }}\n{{- printf \"%s-%s\" .Release.Name $name | trunc 63 | trimSuffix \"-\" }}\n{{- end }}\n{{- end }}\n{{- end }}\n\n{{/*\nCreate chart name and version as used by the chart label.\n*/}}\n{{- define \"kube-finder-system.chart\" -}}\n{{- printf \"%s-%s\" .Chart.Name .Chart.Version | replace \"+\" \"_\" | trunc 63 | trimSuffix \"-\" }}\n{{- end }}\n\n{{/*\nCommon labels\n*/}}\n{{- define \"kube-finder-system.labels\" -}}\nhelm.sh/chart: {{ include \"kube-finder-system.chart\" . }}\n{{ include \"kube-finder-system.selectorLabels\" . }}\n{{- if .Chart.AppVersion }}\napp.kubernetes.io/version: {{ .Chart.AppVersion | quote }}\n{{- end }}\napp.kubernetes.io/managed-by: {{ .Release.Service }}\n{{- end }}\n\n{{/*\nSelector labels\n*/}}\n{{- define \"kube-finder-system.selectorLabels\" -}}\napp.kubernetes.io/name: {{ include \"kube-finder-system.name\" . }}\napp.kubernetes.io/instance: {{ .Release.Name }}\n{{- end }}\n\n{{/*\nCreate the name of the service account to use\n*/}}\n{{- define \"kube-finder-system.serviceAccountName\" -}}\n{{- if .Values.serviceAccount.create }}\n{{- default (include \"kube-finder-system.fullname\" .) .Values.serviceAccount.name }}\n{{- else }}\n{{- default \"default\" .Values.serviceAccount.name }}\n{{- end }}\n{{- end }}
+===================================================================
+diff --git a/Charts/kube-finder/templates/_helpers.tpl b/Charts/kube-finder/templates/_helpers.tpl
+--- a/Charts/kube-finder/templates/_helpers.tpl	
++++ b/Charts/kube-finder/templates/_helpers.tpl	
+@@ -1,7 +1,7 @@
+ {{/*
+ Expand the name of the chart.
+ */}}
+-{{- define "kube-finder-system.name" -}}
++{{- define "kube-finder.name" -}}
+ {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+ {{- end }}
+ 
+@@ -10,7 +10,7 @@
+ We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+ If release name contains chart name it will be used as a full name.
+ */}}
+-{{- define "kube-finder-system.fullname" -}}
++{{- define "kube-finder.fullname" -}}
+ {{- if .Values.fullnameOverride }}
+ {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+ {{- else }}
+@@ -26,16 +26,16 @@
+ {{/*
+ Create chart name and version as used by the chart label.
+ */}}
+-{{- define "kube-finder-system.chart" -}}
++{{- define "kube-finder.chart" -}}
+ {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+ {{- end }}
+ 
+ {{/*
+ Common labels
+ */}}
+-{{- define "kube-finder-system.labels" -}}
+-helm.sh/chart: {{ include "kube-finder-system.chart" . }}
+-{{ include "kube-finder-system.selectorLabels" . }}
++{{- define "kube-finder.labels" -}}
++helm.sh/chart: {{ include "kube-finder.chart" . }}
++{{ include "kube-finder.selectorLabels" . }}
+ {{- if .Chart.AppVersion }}
+ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+ {{- end }}
+@@ -45,17 +45,17 @@
+ {{/*
+ Selector labels
+ */}}
+-{{- define "kube-finder-system.selectorLabels" -}}
+-app.kubernetes.io/name: {{ include "kube-finder-system.name" . }}
++{{- define "kube-finder.selectorLabels" -}}
++app.kubernetes.io/name: {{ include "kube-finder.name" . }}
+ app.kubernetes.io/instance: {{ .Release.Name }}
+ {{- end }}
+ 
+ {{/*
+ Create the name of the service account to use
+ */}}
+-{{- define "kube-finder-system.serviceAccountName" -}}
++{{- define "kube-finder.serviceAccountName" -}}
+ {{- if .Values.serviceAccount.create }}
+-{{- default (include "kube-finder-system.fullname" .) .Values.serviceAccount.name }}
++{{- default (include "kube-finder.fullname" .) .Values.serviceAccount.name }}
+ {{- else }}
+ {{- default "default" .Values.serviceAccount.name }}
+ {{- end }}
+diff --git a/Charts/kube-finder/templates/deployemnt.yaml b/Charts/kube-finder/templates/deployment.yaml
+rename from Charts/kube-finder/templates/deployemnt.yaml
+rename to Charts/kube-finder/templates/deployment.yaml

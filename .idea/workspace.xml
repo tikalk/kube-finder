@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cdd08f2e-8057-4cf1-9043-47914004a16b" name="Changes" comment="fix action" />
+    <list id="529feb89-b3af-412a-8a5a-bc1ef0f3db92" name="local" comment="local" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file:///opt/homebrew/Cellar/go/1.20.3/libexec" />
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="main" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="helm_charts" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="KubernetesApiPersistence">
+    <option name="context" value="gke_yazi-stg-short-circuit_us-east1_ie-cicd-primary" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Qz1EUf9tXNSXonAZS859k4DXaD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/gaby.tal/code/kube-finder-operator/Charts/kube-finder/templates&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Confirmation&quot;,
+    &quot;two.files.diff.last.used.folder&quot;: &quot;/Users/gaby.tal/code/kubeFinder&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Charts/kube-finder/templates" />
+      <recent name="$PROJECT_DIR$/Charts/kube-finder/crd" />
+      <recent name="$PROJECT_DIR$/config/samples" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Charts/kube-finder/crd" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="kube-finder-operator" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="kube-finder-operator" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cdd08f2e-8057-4cf1-9043-47914004a16b" name="Changes" comment="" />
+      <changelist id="529feb89-b3af-412a-8a5a-bc1ef0f3db92" name="local" comment="" />
+      <created>1686341485208</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686341485208</updated>
+      <workItem from="1686341488470" duration="3126000" />
+      <workItem from="1686487363094" duration="2720000" />
+      <workItem from="1686507277920" duration="2698000" />
+      <workItem from="1686550619349" duration="1298000" />
+      <workItem from="1686556146475" duration="22945000" />
+      <workItem from="1686662510778" duration="445000" />
+    </task>
+    <task id="LOCAL-00001" summary="adding secret creds">
+      <created>1686342454277</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686342454277</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fetch data from secrets">
+      <created>1686343390633</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1686343390633</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fetch data from secrets">
+      <created>1686343419315</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1686343419315</updated>
+    </task>
+    <task id="LOCAL-00004" summary="adding local dev guide">
+      <created>1686508586377</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1686508586377</updated>
+    </task>
+    <task id="LOCAL-00005" summary="adding local dev guide">
+      <created>1686561058814</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1686561058814</updated>
+    </task>
+    <task id="LOCAL-00006" summary="change to tikalk">
+      <created>1686563400529</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686563400529</updated>
+    </task>
+    <task id="LOCAL-00007" summary="changing gpt api to work with llms">
+      <created>1686567742378</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686567742378</updated>
+    </task>
+    <task id="LOCAL-00008" summary="changing gpt api to work with llms">
+      <created>1686572190137</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1686572190137</updated>
+    </task>
+    <task id="LOCAL-00009" summary="adding slack token from CR">
+      <created>1686573761568</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686573761568</updated>
+    </task>
+    <task id="LOCAL-00010" summary="adding slack token from CR">
+      <created>1686575381222</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686575381222</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add build folder">
+      <created>1686575839033</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1686575839033</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add build folder">
+      <created>1686575863877</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1686575863877</updated>
+    </task>
+    <task id="LOCAL-00013" summary="remove channels">
+      <created>1686576431869</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1686576431869</updated>
+    </task>
+    <task id="LOCAL-00014" summary="remove channels">
+      <created>1686577340256</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1686577340256</updated>
+    </task>
+    <task id="LOCAL-00015" summary="remove channels">
+      <created>1686577971870</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1686577971870</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix action">
+      <created>1686577981889</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1686577981889</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix action">
+      <created>1686578381192</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1686578381192</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix action">
+      <created>1686578855096</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1686578855096</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fix action">
+      <created>1686579135920</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1686579135920</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix action">
+      <created>1686580238403</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1686580238403</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix action">
+      <created>1686580869421</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1686580869421</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix action">
+      <created>1686581109836</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1686581109836</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adding secret creds" />
+    <MESSAGE value="fetch data from secrets" />
+    <MESSAGE value="adding local dev guide" />
+    <MESSAGE value="change to tikalk" />
+    <MESSAGE value="changing gpt api to work with llms" />
+    <MESSAGE value="adding slack token from CR" />
+    <MESSAGE value="add build folder" />
+    <MESSAGE value="remove channels" />
+    <MESSAGE value="fix action" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix action" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

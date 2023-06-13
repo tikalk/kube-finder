@@ -1,0 +1,10 @@
+apiVersion: kubefinder.tikalk.com/v1alpha1
+kind: Finder
+metadata:
+  name: finder-sample
+spec:
+    find:
+    - "pods"
+    notify:
+        slack:
+          channelID: "C0580AP6881"

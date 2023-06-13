@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: faulty-pod-no-selector
+spec:
+  containers:
+    - name: empty-debian-container
+      image: ubuntu:latest
+  nodeSelector:
+      kubernetes.io/hostname: Moshe-PC

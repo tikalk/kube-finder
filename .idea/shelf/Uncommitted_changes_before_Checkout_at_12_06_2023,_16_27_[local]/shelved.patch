@@ -1,0 +1,20 @@
+Index: config/samples/kube-finder-secret.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apiVersion: v1\nkind: Secret\nmetadata:\n  name: kube-finder-secret\n  namespace: kube-finder-system\ntype: Opaque\ndata:\n  slack-token: <base64 encoded slack token>\n  openai-api-key: <base64 encoded openai api key>\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/samples/kube-finder-secret.yaml b/config/samples/kube-finder-secret.yaml
+--- a/config/samples/kube-finder-secret.yaml	(revision baa15e0f5991b97a170759d16a4db2df1a832555)
++++ b/config/samples/kube-finder-secret.yaml	(date 1686576160622)
+@@ -5,6 +5,5 @@
+   namespace: kube-finder-system
+ type: Opaque
+ data:
+-  slack-token: <base64 encoded slack token>
+-  openai-api-key: <base64 encoded openai api key>
+-
++  slack-token: eG94Yi0yMzQxMzY1ODU4LTU0MDM4NzM1NDIwMzQtVlNHOWxNV25WcjduUjR4cXNuU0gxMXh1Cg==
++  openai-api-key: c2stcDJEOGdPREhiaU55eFg2T2lCNkdUM0JsYmtGSmh3YjVZUWdZYWpUdHZHSHNTSFBQCg==
+\ No newline at end of file
